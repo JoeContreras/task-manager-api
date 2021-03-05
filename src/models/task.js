@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Task = mongoose.model("Task", {
+const taskSchema = mongoose.Schema({
   description: {
     required: true,
     trim: true,
@@ -11,5 +11,20 @@ const Task = mongoose.model("Task", {
     default: false,
   },
 });
+
+/*
+taskSchema.pre("save", async function (next) {
+  const task = this;
+
+  if (task.isModified("password")) {
+    task.password = await bcrypt.hash(task.password, 8);
+  }
+
+  next();
+});
+
+*/
+
+const Task = mongoose.model("Task", taskSchema);
 
 module.exports = Task;
