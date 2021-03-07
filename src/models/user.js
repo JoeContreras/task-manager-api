@@ -35,6 +35,9 @@ const userSchema = mongoose.Schema(
         }
       },
     },
+    avatar: {
+      type: Buffer,
+    },
     age: {
       type: Number,
       default: 0,
@@ -70,13 +73,14 @@ userSchema.methods.toJSON = function () {
 
   delete userObject.password;
   delete userObject.tokens;
+  delete userObject.avatar;
 
   return userObject;
 };
 //function on instance creating tokens at login and signup
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id.toString() }, "secret", {
+  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET, {
     expiresIn: "2 days",
   });
   user.tokens = user.tokens.concat({ token });
