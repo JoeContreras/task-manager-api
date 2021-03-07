@@ -9,8 +9,9 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-/node_modules
-/config
+node_modules
+config
+
 # Generated files
 .idea/**/contentModel.xml
 # Sensitive or high-churn files
