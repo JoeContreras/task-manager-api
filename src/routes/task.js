@@ -16,6 +16,7 @@ router.post("/tasks", auth, async (req, res) => {
     res.status(400).send(e);
   }
 });
+
 // GET /tasks?completed=true||false
 // GET /tasks?limit=5?skip=5
 // GET /tasks?sortBy=createdAt:desc(asc)
@@ -79,7 +80,7 @@ router.delete("/tasks/:id", auth, async (req, res) => {
     }
     res.send(task);
   } catch (e) {
-    res.status(404).send(e);
+    res.status(404).send();
   }
 });
 

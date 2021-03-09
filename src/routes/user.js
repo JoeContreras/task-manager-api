@@ -68,7 +68,7 @@ router.delete("/users/me", auth, async (req, res) => {
     sendCancellationEmail(req.user.email, req.user.name);
     res.send(req.user);
   } catch (e) {
-    res.status(404).send(e);
+    res.status(401).send(e);
   }
 });
 
