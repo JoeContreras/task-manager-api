@@ -118,3 +118,40 @@ test("Should not update invalid user fields", async () => {
     })
     .expect(400);
 });
+
+test("Should not sign up user with invalid email", async () => {
+  const response = await request(app)
+    .post("/users")
+    .send({
+      name: "joe",
+      email: "joe.dfsi",
+    })
+    .expect(400);
+
+  //  assert user is not in database
+  const user = await User.findById(response.body._id);
+  expect(user).toBeNull();
+});
+
+test("Should not update user if unauthenticated", async () => {
+  await request(app)
+    .patch("/users/me")
+    .send({
+      name: "john",
+    })
+    .expect(401);
+});
+
+test("Should not update user with invalid email", async () => {
+  await request(app)
+    .patch("/users/me")
+    .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+    .send({
+      password: "password",
+    })
+    .expect(404);
+});
+
+test("Should not delete user if unauthenticated", async () => {
+  const response = await request(app).delete("/users/me").send().expect(401);
+});

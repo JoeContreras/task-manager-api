@@ -132,7 +132,7 @@ router.delete(
     res.send();
   },
   (error, req, res, next) => {
-    res.status(400).send({ error: error.message });
+    res.status(401).send({ error: error.message });
   }
 );
 
